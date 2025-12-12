@@ -8,7 +8,7 @@ import sqlite3
 # Create your views here.
 
 def index(request):
-  return HttpResponse("Hello world.")
+  return HttpResponse("Cyber Security Project 1 by Lisa Lotz.")
 
 def injection(request):
   if request.method == "POST":
@@ -41,11 +41,11 @@ def add(request):
 
     # flaw
     query = f"INSERT INTO src_diaries (author, entry) VALUES ('{author}', '{entry}')"
-    cursor.execute(query)
+    cursor.executescript(query)
     conn.commit()
 
     # fix
-    # query = "INSERT INTO diaries VALUES (?,?)"
+    # query = "INSERT INTO src_diaries (author, entry) VALUES (?,?)"
     # cursor.execute(query, (author, entry))
     # conn.commit()
 
@@ -68,12 +68,14 @@ def cryptography(request):
     password = request.POST.get('password', '')
 
     # flaw
-    User.objects.create(name=name, password=password)
+    User.objects.create(username=name, password=password)
+    length = len(password)
 
     # fix
     # hashed_password = make_password(password)
-    # User.objects.create(name=name, password=hashed_password)
+    # User.objects.create(username=name, password=hashed_password)
+    # length = len(hashed_password)
 
-    return HttpResponse("User created.")
+    return HttpResponse(f"User created with password length of {length}.")
 
   return render(request, 'pages/cryptography.html') 
