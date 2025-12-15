@@ -108,6 +108,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# flaw
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+]
+
+# fix
+# using default hasher (PBKDF2)
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/

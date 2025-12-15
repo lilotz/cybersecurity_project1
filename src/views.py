@@ -91,9 +91,7 @@ def cryptography(request):
     password = request.POST.get('password', '')
 
     # flaw
-    user = User.objects.create(username=username)
-    user.password = password
-    user.save()
+    user = User.objects.create_user(username=username, password=password)
     length = len(password)
 
     # fix
