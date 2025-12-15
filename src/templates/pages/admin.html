@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Admin Page</title>
+</head>
+
+<body>
+  <h2>Here is every user:</h2>
+
+  {% for user in users %}
+  <p>{{user.username}}</p>
+  {% endfor %}
+</body>
+
+</html>

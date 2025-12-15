@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>Injection</title>
-  </head>
 
-  <body>
-    <h2>Look for an entry:</h2>
-    <form action="/injection/" method="POST" enctype="multipart/form-data">
-      <!-- 
-      flaw (not having csrf token)
+<head>
+  <title>Injection</title>
+</head>
 
-      fix 
-      {% csrf_token %} 
-      -->
-      author: <input type="text" name="author" />
-      <input type="submit" />
-    </form>
+<form action='logout/' method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Logout" />
+</form>
 
-    <h2>Add an entry:</h2>
-    <form action="/injection/add/" method="POST" enctype="multipart/form-data">
-      <!-- 
-      flaw (not having csrf token)
+<body>
+  <h2>Look for an entry:</h2>
+  <form action="/injection/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    author: <input type="text" name="author" />
+    <input type="submit" />
+  </form>
 
-      fix 
-      {% csrf_token %} 
-      -->
-      author: <input type="text" name="author" /> <br />
-      entry: <input type="text" name="entry" /> <br />
-      <input type="submit" />
-    </form>
+  <h2>Add an entry:</h2>
+  <form action="/injection/add/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    author: <input type="text" name="author" /> <br />
+    entry: <input type="text" name="entry" /> <br />
+    <input type="submit" />
+  </form>
 
-    <h2>Entries</h2>
-    {% for entry in entries %}
-      {{entry.0}} <br />
-    {% endfor %}
-  </body>
+  <h2>Entries</h2>
+  {% for entry in entries %}
+  {{entry.0}} <br />
+  {% endfor %}
+</body>
+
 </html>

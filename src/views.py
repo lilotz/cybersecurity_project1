@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
-from .models import User
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 import sqlite3
 
 # Create your views here.
@@ -10,6 +11,11 @@ import sqlite3
 def index(request):
   return HttpResponse("Cyber Security Project 1 by Lisa Lotz.")
 
+# flaw
+@csrf_exempt
+
+# fix
+# no '@csrf_exempt'
 def injection(request):
   if request.method == "POST":
     author = request.POST.get('author', '')
@@ -31,6 +37,11 @@ def injection(request):
 
   return render(request, 'pages/injection.html')
 
+# flaw
+@csrf_exempt
+
+# fix
+# no '@csrf_exempt'
 def add(request):
   if request.method == "POST":
     author = request.POST.get('author', '')
@@ -53,27 +64,43 @@ def add(request):
 
   return render(request, 'pages/injection.html')
 
+# flaw
+@csrf_exempt
+
+# fix
+# no '@csrf_exempt'
 def access(request):
   # flaw
-  return HttpResponse("Security is important!")
+  users = User.objects.all()
+  return render(request, 'pages/admin.html', {'users': users})
 
   # fix
   # @login_required
   # def access(request):
-  #   return HttpResponse("Security is important!")    
+  #    users = User.objects.all()
+  #    return render(request, 'pages/admin.html', {'users':users})
 
+# flaw
+@csrf_exempt
+
+# fix
+# no '@csrf_exempt'
 def cryptography(request):
   if request.method == "POST":
-    name = request.POST.get('name', '')
+    username = request.POST.get('username', '')
     password = request.POST.get('password', '')
 
     # flaw
-    User.objects.create(username=name, password=password)
+    user = User.objects.create(username=username)
+    user.password = password
+    user.save()
     length = len(password)
 
     # fix
     # hashed_password = make_password(password)
-    # User.objects.create(username=name, password=hashed_password)
+    # user = User.objects.create(username=username)
+    # user.password = password
+    # user.save()
     # length = len(hashed_password)
 
     return HttpResponse(f"User created with password length of {length}.")
